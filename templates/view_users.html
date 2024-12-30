@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Users</title>
+
+    {% include 'header.html' %}
+    {% include 'footer.html' %}
+    {% include 'admin_home_nav.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+    <div class="out-container">
+        <div class="container mt-4">
+            <h2>User Management</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>DOB</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTable"></tbody>
+            </table>
+
+            <!-- Add/Edit User Modal -->
+            <div class="modal" id="userModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTitle">Add/Edit User</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="userForm">
+                                <input type="hidden" id="uid">
+                                <div class="mb-3">
+                                    <label for="uname" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="uname" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="mobile" class="form-label">Mobile</label>
+                                    <input type="text" class="form-control" id="mobile" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dob" class="form-label">DOB</label>
+                                    <input type="date" class="form-control" id="dob" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="upass" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="upass">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="saveUser">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <script>
+        const fetchUsers = () => {
+            axios.get('/users').then(response => {
+                const users = response.data;
+                const userTable = document.getElementById('userTable');
+                userTable.innerHTML = users.map(user => `
+                    <tr>
+                        <td>${user.uname}</td>
+                        <td>${user.mobile}</td>
+                        <td>${user.dob}</td>
+                        <td>${user.email}</td>
+                        <td>${user.city}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editUser(${user.uid})">Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteUser(${user.uid})">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+            });
+        };
+
+        const saveUser = () => {
+            const uid = document.getElementById('uid').value;
+            const user = {
+                uname: document.getElementById('uname').value,
+                mobile: document.getElementById('mobile').value,
+                dob: document.getElementById('dob').value,
+                email: document.getElementById('email').value,
+                city: document.getElementById('city').value,
+                upass: document.getElementById('upass').value.trim() ? document.getElementById('upass').value : undefined // Only update password if not empty
+            };
+        
+            if (uid) {
+                axios.put(`/users/${uid}`, user).then(fetchUsers);
+            } else {
+                axios.post('/users', user).then(fetchUsers);
+            }
+        
+            document.getElementById('userForm').reset();
+            bootstrap.Modal.getInstance(document.getElementById('userModal')).hide();
+        };
+        
+
+        const editUser = (uid) => {
+            axios.get(`/users/${uid}`).then(response => {
+                const user = response.data;
+                if (user) {
+                    document.getElementById('uid').value = user.uid;
+                    document.getElementById('uname').value = user.uname;
+                    document.getElementById('mobile').value = user.mobile;
+                    document.getElementById('dob').value = user.dob;
+                    document.getElementById('email').value = user.email;
+                    document.getElementById('city').value = user.city;
+                    // Set placeholder to indicate that a password exists, without revealing it
+                    document.getElementById('upass').setAttribute('placeholder', '*****');
+                    bootstrap.Modal.getOrCreateInstance(document.getElementById('userModal')).show();
+                } else {
+                    alert('User not found');
+                }
+            }).catch(error => {
+                console.error('Error fetching user:', error);
+                alert('Error fetching user data');
+            });
+        };
+        
+        const deleteUser = (uid) => {
+            axios.delete(`/users/${uid}`).then(fetchUsers);
+        };
+
+        document.getElementById('saveUser').addEventListener('click', saveUser);
+
+        fetchUsers();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html

@@ -1,0 +1,186 @@
+<html>
+    <head>
+        <title>User Home</title>
+        {% include 'header.html' %}
+        {% include 'footer.html' %}
+        {% include 'user_home_nav.html' %}
+        <!-- <style>
+            .space {
+                margin-top: 100px;
+            }
+            h3.text-center {
+                margin-bottom: 30px; /* Space below the heading */
+                font-size: 2rem;
+                font-weight: bold;
+                color: #333;
+            }
+
+            #events-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px; /* Add space between grid items */
+                justify-content: center; /* Center the items */
+            }
+
+            .card {
+                border: none;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for card */
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .card-img-top {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .card-body {
+                padding: 20px;
+                background-color: #fff;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+            .card-text {
+                font-size: 1rem;
+                color: #666;
+                margin-bottom: 5px;
+            }
+
+            .col-md-4 {
+                max-width: 320px;
+                width: 100%;
+            }
+
+            .book-btn {
+                margin-top: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+            .book-btn:hover {
+                background-color: #0056b3;
+            }
+        </style> -->
+    </head>
+    <body class="user-home">
+        <div class="space">
+            <div class="container mt-5">
+                <h3 class="text-center">Available Event Halls</h3>
+                <div class="box-space">
+                    <div class="row" id="events-grid">
+                        {% for event in events %}
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <img src="data:image/jpeg;base64,{{ event.image }}" class="card-img-top" alt="Event Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ event.etitle }}</h5>
+                                        <p class="card-text">Capacity: {{ event.capacity }}</p>
+                                        <p class="card-text">Price per Hour: ${{ event.price }}</p>
+                                        <p class="card-text">Address: {{ event.address }}</p>
+                                        <p class="card-text">
+                                            Status: 
+                                            {% if event.status == 'Booked' %}
+                                                <span class="badge bg-danger">Booked</span>
+                                            {% else %}
+                                                <span class="badge bg-success">Available</span>
+                                            {% endif %}
+                                        </p>
+                                        {% if event.status != 'Booked' %}
+                                            <button class="book-btn" data-bs-toggle="modal" data-bs-target="#bookingModal" data-event-id="{{ event.eid }}">Book</button>
+                                        {% else %}
+                                            <button class="book-btn" disabled>Booked</button>
+                                        {% endif %}
+                                    </div>                                
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>    
+            </div>
+
+            <!-- Booking Modal -->
+            <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="bookingModalLabel">Book Event Hall</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{{ url_for('book_event') }}">
+                                
+                                <input type="hidden" id="event_id" name="event_id" value="">
+                                <input type="hidden" id="user_id" name="user_id" value="{{ session['uid'] }}">
+                                <!-- Event Name -->
+                                <div class="form-group">
+                                    <label for="event_name">Event Name</label>
+                                    <input type="text" class="form-control" id="event_name" name="event_name" required>
+                                </div>
+            
+                                <!-- No of People -->
+                                <div class="form-group mt-3">
+                                    <label for="no_of_people">No of People</label>
+                                    <input type="number" class="form-control" id="no_of_people" name="no_of_people" required>
+                                </div>
+            
+                                <!-- Event Date -->
+                                <div class="form-group mt-3">
+                                    <label for="event_date">Event Date</label>
+                                    <input type="date" class="form-control" id="event_date" name="event_date" required>
+                                </div>
+            
+                                <!-- Event Description -->
+                                <div class="form-group mt-3">
+                                    <label for="event_description">Event Description</label>
+                                    <textarea class="form-control" id="event_description" name="event_description" rows="4" required></textarea>
+                                </div>
+            
+                                <!-- Is Food Required (Radio Buttons) -->
+                                <div class="form-group mt-3">
+                                    <label>Is Food Required?</label><br>
+                                    <input type="radio" id="food_yes" name="food_required" value="Yes" required>
+                                    <label for="food_yes">Yes</label>
+                                    <input type="radio" id="food_no" name="food_required" value="No">
+                                    <label for="food_no">No</label>
+                                </div>
+            
+                                <!-- Submit Button -->
+                                <div class="form-group mt-3">
+                                    <input type="submit" class="btn btn-primary" value="Book Hall">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+        </div>       
+        <script>
+            $('#bookingModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // The button that triggered the modal
+                var eventId = button.data('event-id'); // Use the correct data attribute
+                var modal = $(this);
+            
+                // Set the hidden input value in the modal form
+                modal.find('#event_id').val(eventId);
+            });                   
+        </script>
+    </body>
+</html>

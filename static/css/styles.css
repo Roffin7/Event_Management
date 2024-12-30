@@ -1,0 +1,421 @@
+/* Fix body scrolling */
+body.admin-home {
+    /* Removed overflow: hidden */
+    width: 100%;
+    height: 100vh; /* Ensure body height spans the viewport */
+}
+
+body.index-page {
+    width: 100%;
+    height: 100vh; /* Ensure body height spans the viewport */
+    background: url("../images/purple2.jpg") center / cover no-repeat;
+    position: relative; /* Needed for the overlay positioning */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Stronger Overlay to reduce the vibrancy of the background */
+body.index-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Increased opacity to darken the background */
+    z-index: 1; /* Ensure overlay is above the background image but below content */
+}
+
+/* Styling for the heading text */
+.index-page h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    z-index: 2; /* Ensure text is above the overlay */
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Styling for the first part of the text */
+.first-line {
+    display: block; /* This will break the line */
+    color: #fff; /* White color for "We plan the" */
+}
+
+/* Styling for the second part of the text */
+.second-line {
+    display: block; /* This will make it appear on the next line */
+    font-size: 4.5rem; /* Slightly larger font for emphasis */
+    font-family: 'Poppins', sans-serif; /* Keep the Poppins font */
+    background: linear-gradient(90deg, #ff00ff, #00ffff, #8a2be2); /* Gradient colors */
+    background-size: 200% 200%; /* Ensures the gradient is large enough for animation */
+    -webkit-background-clip: text; /* Makes gradient visible only on the text */
+    background-clip: text; /* Standard property for compatibility */
+    color: transparent; /* Makes the text color transparent */
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase; /* Makes the text uppercase */
+    letter-spacing: 2px; /* Adds spacing between letters for elegance */
+    animation: auroraEffect 5s ease-in-out infinite; /* Animates the gradient */
+    cursor: pointer; /* Makes the text clickable if needed */
+}
+
+/* Aurora Effect Animation */
+@keyframes auroraEffect {
+    0% {
+        background-position: 0% 50%; /* Start the gradient at the left */
+    }
+    50% {
+        background-position: 100% 50%; /* Move the gradient to the right */
+    }
+    100% {
+        background-position: 0% 50%; /* Return the gradient to the left */
+    }
+}
+
+
+
+
+header.index-nav{
+    
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10; /* Ensure header stays on top */
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.3);
+
+}
+header.admin-header{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10; /* Ensure header stays on top */
+    padding: 10px;
+    background-color: #6A0DAD; /* Admin header color */
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Add margin for fixed header */
+body.user-home .space {
+    margin-top: 100px; /* Adjust based on the header height */
+}
+
+.box-space {
+    margin-top: 50px; /* Adjust based on the header height */
+}
+/* Logo Styling */
+.logo h2 {
+    margin-left: -60px; /* Add margin for spacing */
+    font-size: 2rem;
+    font-family: 'Poppins', sans-serif; /* Clean and modern font */
+    font-weight: 700;
+    color: #e0d7f0; /* Simple, dark color for elegance */
+    text-align: center; /* Center the text */
+    text-transform: uppercase; /* Make text uppercase */
+    letter-spacing: 2px; /* Adds spacing between letters for elegance */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: color 0.3s ease-in-out; /* Smooth color transition on hover */
+}
+
+/* Hover Effect */
+.logo h2:hover {
+    color: #fff; /* Change color on hover to something elegant like pink */
+    transform: scale(1.1); /* Slight zoom on hover */
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+
+.navbar .logo {
+    display: flex;
+    color: #C0C0C0;
+    gap: 10px;
+    text-decoration: none;
+    align-items: center;
+}
+
+.navbar .logo:hover {
+    color: #FFFFFF;
+}
+
+.navbar .box {
+    display: flex;
+    gap: 65px;
+    list-style: none;
+}
+
+.navbar .box a {
+    color: #C0C0C0;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.navbar .box a:hover {
+    color: #FFFFFF;
+}
+
+.navbar .links {
+    display: flex;
+    list-style: none;
+    gap: 65px;
+}
+
+.navbar .links a {
+    color: #C0C0C0;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.navbar .links a:hover {
+    color: #FFFFFF;
+}
+
+/* .container {
+    color: aquamarine;
+    padding: 20px; /* Add padding for better spacing 
+} */
+
+/* Adjust events grid spacing */
+#events-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Card styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+    background-color: #fff;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.col-md-4 {
+    max-width: 320px;
+    width: 100%;
+}
+
+/* Book button styles */
+.book-btn {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.book-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Adjust modal styling */
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #4d0081;
+    color: white;
+    border-bottom: none;
+}
+
+.text-primary {
+    color: #e0d7f0 !important; /* Add !important to override Bootstrap */
+}
+
+.dropdown-menu[data-bs-popper] {
+    background-color: #4d0081;
+    left: -30;
+    border: none; /* Remove default border */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    padding: 10px; /* Add padding for spacing */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.dropdown-menu a {
+    color: #fff; /* White text color */
+    padding: 10px 20px; /* Add padding for better spacing */
+    display: block; /* Ensure links take full width */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.dropdown-menu a:hover {
+    background-color: #6a0dad; /* Slightly lighter purple on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+    border-radius: 10px;
+}
+
+.table-container .page-header{
+    color:#333;
+}
+
+.dropdown-container .dropdown-menu{
+    background-color: #4d0081;
+    top: 50px;
+    left: -110;
+    width: 350px; /* Set a fixed width */
+    border: none; /* Remove default border */
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    padding: 10px; /* Add padding for spacing */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.dropdown-container .dropdown-menu a {
+    font-size: 1rem;
+}
+
+
+/* module 4 */
+
+.out-container {
+    margin-top: 80px;
+    padding: 30px 15px;
+    min-height: 100vh;
+}
+
+.out-container h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Table Styles */
+.table {
+    width: 100%;
+    margin-top: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 16px 20px;
+    text-align: left;
+    font-size: 16px;
+    color: #555;
+    transition: background-color 0.3s ease;
+}
+
+.table th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.table td {
+    background-color: #ffffff;
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.table tr:nth-child(even) td {
+    background-color: #fafafa;
+}
+
+.table tr:hover td {
+    background-color: #f0f0f0;
+}
+
+.table .btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.table .btn-warning {
+    background-color: #6a0dad; /* Match navbar purple */
+    color: white;
+}
+
+.table .btn-warning:hover {
+    background-color: #5a0a8e;
+    transform: scale(1.05);
+}
+
+.table .btn-danger {
+    background-color: #e74c3c; /* Red for delete */
+    color: white;
+}
+
+.table .btn-danger:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+.btn-close {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: #6a0dad; /* Match navbar purple */
+}
+
+/* Optional: Add a smooth shadow effect on the table when hovered */
+.table:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: Adjusting the table row hover effect */
+.table tr:hover {
+    background-color: #f8f8f8;
+}
+
+
+
+
+
+

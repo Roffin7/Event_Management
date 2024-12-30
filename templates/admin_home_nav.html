@@ -1,0 +1,67 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <header class="admin-header">
+        <nav class="navbar navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="#" class="logo">
+                        <h2>Events</h2>
+                    </a>
+                </div>
+                <ul class="box">
+                    <li><a href="{{url_for('admin_home')}}">Welcome: {{ session['Admin_name'] }}</a></li>
+                    <li><a href="#" data-bs-toggle="modal" data-bs-target="#addevents">Add Events</a></li>
+                    <li><a href="{{url_for('view_bookings')}}">Booked Events</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">More</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{url_for('view_users')}}">View Users</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('logout')}}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        </header>
+        <div class="modal fade" id="addevents" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="text-primary text-center modal-title w-100" id="adminModalLabel"><span>Add Events</span></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="">Event Hall Title</label>
+                                <input type="text" class="form-control" name="etitle" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Capacity</label>
+                                <input type="number" class="form-control" name="capacity" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Price Per Hour</label>
+                                <input type="number" class="form-control" name="price" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Picture</label>
+                                <input type="file" class="form-control" name="image" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Hall Address</label>
+                                <input type="text" class="form-control" name="address" autocomplete="off">
+                            </div>    
+                            <div class="form-group mt-3">
+                                <input type="submit" class="btn btn-primary float-end" value="Add Events" name="addevents">
+                                <input type="reset" class="btn btn-danger float-end me-2" value="Clear">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

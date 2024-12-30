@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Home</title>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<header class="admin-header">
+    <nav class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="logo">
+                    <h2>Events</h2>
+                </a>
+            </div>
+            <ul class="box">
+                <li><a href="{{url_for('user_home')}}">Welcome: {{ session['uname'] }}</a></li>
+                <li><a href="#">Profile</a></li>
+                
+                <!-- Notification Icon with Dropdown -->
+                <div class = "dropdown-container">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-bell"></i> <span class="badge bg-danger">{{ notifications|length }}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if notifications %}
+                                {% for notification in notifications %}
+                                    <li>
+                                        <a href="#">
+                                            {{ notification['message'] }}
+                                            <br>
+                                            <small class="text-muted">{{ notification['created_at'] }}</small>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                {% endfor %}
+                            {% else %}
+                                <li><a href="#">No new notifications</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                </div>    
+
+                <li><a href="{{url_for('logout')}}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+    

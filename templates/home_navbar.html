@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <header class = "index-nav">
+            <nav class="navbar navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="#" class="logo">
+                            <h2>RJ Events</h2>
+                        </a>
+            
+                    </div>
+                    <ul class="links">
+                        <li><a href="{{url_for('home')}}">Home</a></li>
+                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#admin">Admin</a></li>
+                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#register">Registration</a></li>
+                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#users">Login</a></li>
+                    </ul>
+            
+                </div>
+            
+            </nav>
+            </header>
+
+            <style>
+                .modal-dialog{
+                    max-width: 500px;
+                    margin: 30px auto;
+                }
+
+                .modal-body{
+                    padding: 20px;
+                }
+            </style>
+
+    </head>
+    <body>
+        <div class="modal fade" id="admin" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="text-primary text-center modal-title w-100" id="adminModalLabel"><span>Admin Login</span></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            <div class="form-group">
+                                <label for="">Admin Name</label>
+                                <input type="text" class="form-control" placeholder="Name"   name="Admin_name" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" placeholder="Password"  name="Password" autocomplete="off">
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="submit" class="btn btn-primary float-end" value="Login" name="alogin">
+                                <input type="reset" class="btn btn-danger float-end me-2" value="Clear">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="register" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="text-primary text-center modal-title w-100" id="adminModalLabel"><span>Registration</span></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="uname" placeholder="Username" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="upass" placeholder="Password" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="repassword">Re-enter Password</label>
+                                <input type="password" class="form-control" id="repassword" name="repass" placeholder="Re-enter Password" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="mobile">Mobile No</label>
+                                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile No" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="City" autocomplete="off">
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="state">State</label>
+                                <input type="text" class="form-control" id="state" name="state" placeholder="State" autocomplete="off">
+                            </div> -->
+                            <div class="form-group mt-3">
+                                <input type="submit" class="btn btn-primary float-end" name="register"  value="Register">
+                                <input type="reset" class="btn btn-danger float-end me-2" value="Cancel">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="users" tabindex="-1" aria-labelledby="adminModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="text-primary text-center modal-title w-100" id="adminModalLabel"><span>User Login</span></h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            <div class="form-group">
+                                <label for="">User Name</label>
+                                <input type="text" class="form-control" placeholder="Name"   name="uname" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" placeholder="Password"  name="upass" autocomplete="off">
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="submit" class="btn btn-primary float-end" name="ulogin"   value="Login">
+                                <input type="reset" class="btn btn-danger float-end me-2" value="Clear">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
